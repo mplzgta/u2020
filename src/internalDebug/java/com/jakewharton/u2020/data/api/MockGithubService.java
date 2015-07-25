@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import retrofit.Result;
 import retrofit.http.Query;
 import rx.Observable;
 
@@ -42,7 +43,7 @@ public final class MockGithubService implements GithubService {
     EnumPreferences.saveEnumValue(preferences, responseClass.getCanonicalName(), value);
   }
 
-  @Override public Observable<RepositoriesResponse> repositories(@Query("q") SearchQuery query,
+  @Override public Observable<Result<RepositoriesResponse>> repositories(@Query("q") SearchQuery query,
       @Query("sort") Sort sort, @Query("order") Order order) {
     RepositoriesResponse response = getResponse(MockRepositoriesResponse.class).response;
 
@@ -53,6 +54,6 @@ public final class MockGithubService implements GithubService {
       response = new RepositoriesResponse(items);
     }
 
-    return Observable.just(response);
+    return Observable.just(Result.response(response));
   }
 }

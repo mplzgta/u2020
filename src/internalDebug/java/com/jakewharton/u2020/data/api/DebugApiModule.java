@@ -1,19 +1,18 @@
 package com.jakewharton.u2020.data.api;
 
-import android.content.SharedPreferences;
 import com.jakewharton.u2020.data.ApiEndpoint;
 import com.jakewharton.u2020.data.IsMockMode;
 import com.jakewharton.u2020.data.prefs.StringPreference;
+import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import retrofit.Endpoint;
-import retrofit.Endpoints;
-import retrofit.MockRestAdapter;
-import retrofit.RestAdapter;
-import retrofit.android.AndroidMockValuePersistence;
+import retrofit.Retrofit;
+import retrofit.mock.Behavior;
+import retrofit.mock.MockRetrofit;
+import retrofit.mock.ObservableBehaviorAdapter;
 
 @Module(
     complete = false,
@@ -21,10 +20,8 @@ import retrofit.android.AndroidMockValuePersistence;
     overrides = true
 )
 public final class DebugApiModule {
-
-  @Provides @Singleton
-  Endpoint provideEndpoint(@ApiEndpoint StringPreference apiEndpoint) {
-    return Endpoints.newFixedEndpoint(apiEndpoint.get());
+  @Provides @Singleton HttpUrl provideHttpUrl(@ApiEndpoint StringPreference apiEndpoint) {
+    return HttpUrl.parse(apiEndpoint.get());
   }
 
   @Provides @Singleton @Named("Api")
@@ -34,20 +31,20 @@ public final class DebugApiModule {
     return client;
   }
 
-
-  @Provides @Singleton
-  MockRestAdapter provideMockRestAdapter(RestAdapter restAdapter, SharedPreferences preferences) {
-    MockRestAdapter mockRestAdapter = MockRestAdapter.from(restAdapter);
-    AndroidMockValuePersistence.install(mockRestAdapter, preferences);
-    return mockRestAdapter;
+  @Provides @Singleton Behavior provideBehavior() {
+    return Behavior.create();
   }
 
-  @Provides @Singleton
-  GithubService provideGithubService(RestAdapter restAdapter, MockRestAdapter mockRestAdapter,
-      @IsMockMode boolean isMockMode, MockGithubService mockService) {
+  @Provides @Singleton MockRetrofit provideMockRetrofit(Behavior behavior) {
+    // TODO figure out how to persist behavior preferences.
+    return new MockRetrofit(ObservableBehaviorAdapter.create(), behavior);
+  }
+
+  @Provides @Singleton GithubService provideGithubService(Retrofit retrofit,
+      MockRetrofit mockRetrofit, @IsMockMode boolean isMockMode, MockGithubService mockService) {
     if (isMockMode) {
-      return mockRestAdapter.create(GithubService.class, mockService);
+      return mockRetrofit.create(GithubService.class, mockService);
     }
-    return restAdapter.create(GithubService.class);
+    return retrofit.create(GithubService.class);
   }
 }

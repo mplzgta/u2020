@@ -22,7 +22,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import retrofit.MockRestAdapter;
+import retrofit.mock.Behavior;
 import rx.Observable;
 import timber.log.Timber;
 
@@ -139,11 +139,11 @@ public final class DebugDataModule {
         DEFAULT_SCALPEL_WIREFRAME_ENABLED);
   }
 
-  @Provides @Singleton Picasso providePicasso(OkHttpClient client, MockRestAdapter mockRestAdapter,
+  @Provides @Singleton Picasso providePicasso(OkHttpClient client, Behavior behavior,
       @IsMockMode boolean isMockMode, Application app) {
     Picasso.Builder builder = new Picasso.Builder(app).downloader(new OkHttpDownloader(client));
     if (isMockMode) {
-      builder.addRequestHandler(new MockRequestHandler(mockRestAdapter, app.getAssets()));
+      builder.addRequestHandler(new MockRequestHandler(behavior, app.getAssets()));
     }
     builder.listener(new Picasso.Listener() {
       @Override public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {

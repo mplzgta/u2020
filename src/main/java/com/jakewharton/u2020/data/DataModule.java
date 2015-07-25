@@ -3,9 +3,8 @@ package com.jakewharton.u2020.data;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.jakewharton.u2020.data.api.ApiModule;
+import com.squareup.moshi.Moshi;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
@@ -14,7 +13,6 @@ import dagger.Module;
 import dagger.Provides;
 import java.io.File;
 import javax.inject.Singleton;
-import org.threeten.bp.Instant;
 import timber.log.Timber;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -33,10 +31,10 @@ public final class DataModule {
     return app.getSharedPreferences("u2020", MODE_PRIVATE);
   }
 
-  @Provides @Singleton Gson provideGson() {
-    return new GsonBuilder()
-        .registerTypeAdapter(Instant.class, new InstantConverter().nullSafe())
-        .create();
+  @Provides @Singleton Moshi provideMoshi() {
+    return new Moshi.Builder()
+        .add(new InstantAdapter())
+        .build();
   }
 
   @Provides @Singleton Clock provideClock() {
