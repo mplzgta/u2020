@@ -2,7 +2,9 @@ package com.jakewharton.u2020.ui;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +21,10 @@ import butterknife.BindColor;
 import butterknife.ButterKnife;
 import com.jakewharton.u2020.R;
 import com.jakewharton.u2020.data.Injector;
+import com.jakewharton.u2020.data.oauth.OauthManager;
+import com.jakewharton.u2020.data.oauth.OauthService;
+import com.jakewharton.u2020.util.Intents;
+import com.squareup.okhttp.HttpUrl;
 import dagger.ObjectGraph;
 import javax.inject.Inject;
 
@@ -32,6 +38,7 @@ public final class MainActivity extends Activity {
   @BindColor(R.color.status_bar) int statusBarColor;
 
   @Inject AppContainer appContainer;
+  @Inject OauthManager oauthManager;
 
   private ObjectGraph activityGraph;
 
@@ -61,7 +68,7 @@ public final class MainActivity extends Activity {
       @Override public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
           case R.id.nav_search:
-            Toast.makeText(MainActivity.this, "Search!", LENGTH_SHORT).show();
+            Intents.maybeStartActivity(MainActivity.this, oauthManager.createLoginIntent());
             break;
           case R.id.nav_trending:
             Toast.makeText(MainActivity.this, "Trending!", LENGTH_SHORT).show();
@@ -91,6 +98,19 @@ public final class MainActivity extends Activity {
   @Override protected void onDestroy() {
     activityGraph = null;
     super.onDestroy();
+  }
+
+  @Override protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+
+    Uri data = intent.getData();
+    if (data == null) return;
+
+    if ("u2020".equals(data.getScheme())) {
+      Intent serviceIntent = new Intent(this, OauthService.class);
+      serviceIntent.setData(data);
+      startService(serviceIntent);
+    }
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)

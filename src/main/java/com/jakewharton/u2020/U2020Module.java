@@ -2,6 +2,7 @@ package com.jakewharton.u2020;
 
 import android.app.Application;
 import com.jakewharton.u2020.data.DataModule;
+import com.jakewharton.u2020.data.oauth.OauthService;
 import com.jakewharton.u2020.ui.UiModule;
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +14,8 @@ import javax.inject.Singleton;
         DataModule.class
     },
     injects = {
-        U2020App.class
+        U2020App.class,
+        OauthService.class
     }
 )
 public final class U2020Module {
