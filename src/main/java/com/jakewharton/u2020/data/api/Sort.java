@@ -1,5 +1,6 @@
 package com.jakewharton.u2020.data.api;
 
+//enum representing property to sort on
 public enum Sort {
   STARS("stars"),
   FORKS("forks"),

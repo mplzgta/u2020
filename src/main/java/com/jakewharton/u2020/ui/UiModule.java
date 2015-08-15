@@ -16,6 +16,8 @@ public final class UiModule {
     return AppContainer.DEFAULT;
   }
 
+    //this is that silly hierarchy server thing that shows the view hierarchy on the dev machine
+    //see SocketActivityHierarchyServer
   @Provides @Singleton ActivityHierarchyServer provideActivityHierarchyServer() {
     return ActivityHierarchyServer.NONE;
   }

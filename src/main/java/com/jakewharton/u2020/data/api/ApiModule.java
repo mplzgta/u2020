@@ -12,6 +12,7 @@ import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
+//DI configuration; compare DebugApiModule
 @Module(
     complete = false,
     library = true

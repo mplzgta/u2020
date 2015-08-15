@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+//Note: the debug activity counterpart is much shorter!
 public final class MainActivity extends Activity {
   @Bind(R.id.main_drawer_layout) DrawerLayout drawerLayout;
   @Bind(R.id.main_navigation) NavigationView drawer;

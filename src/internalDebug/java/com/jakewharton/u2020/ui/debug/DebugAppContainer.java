@@ -22,7 +22,7 @@ import com.jakewharton.u2020.data.ScalpelWireframeEnabled;
 import com.jakewharton.u2020.data.SeenDebugDrawer;
 import com.jakewharton.u2020.data.prefs.BooleanPreference;
 import com.jakewharton.u2020.ui.AppContainer;
-import com.jakewharton.u2020.ui.bugreport.BugReportLens;
+//import com.jakewharton.u2020.ui.bugreport.BugReportLens;
 import com.jakewharton.u2020.util.EmptyActivityLifecycleCallbacks;
 import com.mattprecious.telescope.TelescopeLayout;
 import javax.inject.Inject;
@@ -100,7 +100,7 @@ public final class DebugAppContainer implements AppContainer {
     });
 
     TelescopeLayout.cleanUp(activity); // Clean up any old screenshots.
-    viewHolder.telescopeLayout.setLens(new BugReportLens(activity, lumberYard));
+//    viewHolder.telescopeLayout.setLens(new BugReportLens(activity, lumberYard));
 
     // If you have not seen the debug drawer before, show it with a message
     if (!seenDebugDrawer.get()) {

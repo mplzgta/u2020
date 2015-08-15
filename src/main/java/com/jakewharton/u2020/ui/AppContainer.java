@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import static butterknife.ButterKnife.findById;
 
+//todo figure out the purpose of this
 /** An indirection which allows controlling the root container used for each activity. */
 public interface AppContainer {
   /** The root {@link android.view.ViewGroup} into which the activity should place its contents. */

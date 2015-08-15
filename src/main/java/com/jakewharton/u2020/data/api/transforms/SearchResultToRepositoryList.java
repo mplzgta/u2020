@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import rx.functions.Func1;
 
+//singleton for parsing repositoriesresponse to list of repos
 public final class SearchResultToRepositoryList implements Func1<RepositoriesResponse, List<Repository>> {
   private static volatile SearchResultToRepositoryList instance;
 

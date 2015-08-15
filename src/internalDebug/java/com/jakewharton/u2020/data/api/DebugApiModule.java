@@ -35,6 +35,8 @@ public final class DebugApiModule {
   }
 
 
+  //todo: why no provideRestAdapter here?
+  //I think the solution may be that DataModule includes APIModule??? But there is DebugDataModule too...
   @Provides @Singleton
   MockRestAdapter provideMockRestAdapter(RestAdapter restAdapter, SharedPreferences preferences) {
     MockRestAdapter mockRestAdapter = MockRestAdapter.from(restAdapter);
@@ -42,6 +44,7 @@ public final class DebugApiModule {
     return mockRestAdapter;
   }
 
+  //mock mode triggers creation of different github service, at time of object graph construction
   @Provides @Singleton
   GithubService provideGithubService(RestAdapter restAdapter, MockRestAdapter mockRestAdapter,
       @IsMockMode boolean isMockMode, MockGithubService mockService) {

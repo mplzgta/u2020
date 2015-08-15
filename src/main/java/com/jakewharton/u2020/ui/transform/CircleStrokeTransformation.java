@@ -12,6 +12,7 @@ import static android.graphics.Bitmap.Config.ARGB_8888;
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static android.graphics.Shader.TileMode.CLAMP;
 
+//subclasses a Picasso class that transforms one bitmap into another
 public class CircleStrokeTransformation implements Transformation {
   private final float strokeWidth;
   private final Paint strokePaint;

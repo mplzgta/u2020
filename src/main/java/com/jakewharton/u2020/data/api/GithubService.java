@@ -5,6 +5,7 @@ import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;
 
+//typical retrofit http call service
 public interface GithubService {
   @GET("/search/repositories") //
   Observable<RepositoriesResponse> repositories( //

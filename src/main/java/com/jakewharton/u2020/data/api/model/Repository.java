@@ -7,6 +7,7 @@ import org.threeten.bp.Instant;
 
 import static com.jakewharton.u2020.util.Preconditions.checkNotNull;
 
+//github repository dto
 public final class Repository {
   @NonNull public final String name;
   @NonNull public final User owner;

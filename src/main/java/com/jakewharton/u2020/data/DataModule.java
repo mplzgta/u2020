@@ -48,6 +48,7 @@ public final class DataModule {
     return IntentFactory.REAL;
   }
 
+  //note: this is different from provideAPIHttpClient, in ApiModule
   @Provides @Singleton OkHttpClient provideOkHttpClient(Application app) {
     return createOkHttpClient(app);
   }

@@ -21,6 +21,7 @@ import timber.log.Timber;
 
 import static org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
+//used for file logging
 @Singleton
 public final class LumberYard {
   private static final int BUFFER_SIZE = 200;

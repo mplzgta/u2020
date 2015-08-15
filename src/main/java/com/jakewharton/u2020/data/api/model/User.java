@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import static com.jakewharton.u2020.util.Preconditions.checkNotNull;
 
+//git hub user dto
 public final class User {
   @NonNull public final String login;
   @SerializedName("avatar_url") @Nullable public final String avatarUrl;

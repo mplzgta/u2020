@@ -2,6 +2,7 @@ package com.jakewharton.u2020.data.prefs;
 
 import android.content.SharedPreferences;
 
+//object representation of shared preferences pref
 public class IntPreference {
   private final SharedPreferences preferences;
   private final String key;

@@ -5,6 +5,7 @@ import org.threeten.bp.LocalDate;
 import static com.jakewharton.u2020.util.Preconditions.checkNotNull;
 import static org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
+//represents a search query to be used in retrofit url
 public final class SearchQuery {
   private final LocalDate createdSince;
 
