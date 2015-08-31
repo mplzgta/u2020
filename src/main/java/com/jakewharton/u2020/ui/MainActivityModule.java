@@ -11,8 +11,8 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(
-    addsTo = U2020Module.class,
-    injects = TrendingView.class
+//    addsTo = U2020Module.class//,
+//    injects = TrendingView.class
 )
 public final class MainActivityModule {
   private final MainActivity mainActivity;

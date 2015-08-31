@@ -7,17 +7,18 @@ import com.jakewharton.u2020.data.Injector;
 import com.jakewharton.u2020.data.LumberYard;
 import com.jakewharton.u2020.ui.ActivityHierarchyServer;
 import com.squareup.leakcanary.LeakCanary;
-import dagger.ObjectGraph;
+//import dagger.ObjectGraph;
 import javax.inject.Inject;
 import timber.log.Timber;
 
 import static timber.log.Timber.DebugTree;
 
 public final class U2020App extends Application {
-  private ObjectGraph objectGraph;
+  //private ObjectGraph objectGraph;
 
   @Inject ActivityHierarchyServer activityHierarchyServer;
   @Inject LumberYard lumberYard;
+  @Inject Integer sthg;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -31,8 +32,8 @@ public final class U2020App extends Application {
       // TODO Timber.plant(new CrashlyticsTree());
     }
 
-    objectGraph = ObjectGraph.create(Modules.list(this));
-    objectGraph.inject(this);
+    //objectGraph = ObjectGraph.create(Modules.list(this));
+    //objectGraph.inject(this);
 
     lumberYard.cleanUp();
     Timber.plant(lumberYard.tree());
@@ -40,10 +41,10 @@ public final class U2020App extends Application {
     registerActivityLifecycleCallbacks(activityHierarchyServer);
   }
 
-  @Override public Object getSystemService(@NonNull String name) {
-    if (Injector.matchesService(name)) {
-      return objectGraph;
-    }
-    return super.getSystemService(name);
-  }
+//  @Override public Object getSystemService(@NonNull String name) {
+//    if (Injector.matchesService(name)) {
+//      return objectGraph;
+//    }
+//    return super.getSystemService(name);
+//  }
 }

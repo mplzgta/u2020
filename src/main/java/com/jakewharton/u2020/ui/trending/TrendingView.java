@@ -69,8 +69,14 @@ public final class TrendingView extends LinearLayout
 
   public TrendingView(Context context, AttributeSet attrs) {
     super(context, attrs);
+    /*
+    * Indicates whether this View is currently in edit mode. A View is usually
+    * in edit mode when displayed within a developer tool. For instance, if
+    * this View is being drawn by a visual user interface builder, this method
+            * should return true.*/
     if (!isInEditMode()) {
-      Injector.obtain(context).inject(this);
+      throw new RuntimeException();
+ //     Injector.obtain(context).inject(this);
     }
 
     timespanSubject = PublishSubject.create();

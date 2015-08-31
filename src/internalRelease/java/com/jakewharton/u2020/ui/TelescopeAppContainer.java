@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import com.jakewharton.u2020.R;
 import com.jakewharton.u2020.data.LumberYard;
 import com.jakewharton.u2020.data.prefs.BooleanPreference;
-import com.jakewharton.u2020.ui.bugreport.BugReportLens;
+//import com.jakewharton.u2020.ui.bugreport.BugReportLens;
 import com.mattprecious.telescope.Lens;
 import com.mattprecious.telescope.TelescopeLayout;
 import java.io.File;
@@ -39,7 +39,7 @@ public final class TelescopeAppContainer implements AppContainer {
     ButterKnife.bind(this, activity);
 
     TelescopeLayout.cleanUp(activity); // Clean up any old screenshots.
-    telescopeLayout.setLens(new BugReportLens(activity, lumberYard));
+//    telescopeLayout.setLens(new BugReportLens(activity, lumberYard));
 
     // If you have not seen the telescope dialog before, show it.
     if (!seenTelescopeDialog.get()) {

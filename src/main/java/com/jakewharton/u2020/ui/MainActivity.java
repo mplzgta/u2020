@@ -19,7 +19,7 @@ import butterknife.BindColor;
 import butterknife.ButterKnife;
 import com.jakewharton.u2020.R;
 import com.jakewharton.u2020.data.Injector;
-import dagger.ObjectGraph;
+//import dagger.ObjectGraph;
 import javax.inject.Inject;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -33,8 +33,8 @@ public final class MainActivity extends Activity {
   @BindColor(R.color.status_bar) int statusBarColor;
 
   @Inject AppContainer appContainer;
-
-  private ObjectGraph activityGraph;
+//
+//  private ObjectGraph activityGraph;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -46,9 +46,9 @@ public final class MainActivity extends Activity {
     }
 
     // Explicitly reference the application object since we don't want to match our own injector.
-    ObjectGraph appGraph = Injector.obtain(getApplication());
-    appGraph.inject(this);
-    activityGraph = appGraph.plus(new MainActivityModule(this));
+//    ObjectGraph appGraph = Injector.obtain(getApplication());
+//    appGraph.inject(this);
+//    activityGraph = appGraph.plus(new MainActivityModule(this));
 
     ViewGroup container = appContainer.bind(this);
 
@@ -82,15 +82,15 @@ public final class MainActivity extends Activity {
     inflater.inflate(R.layout.trending_view, content);
   }
 
-  @Override public Object getSystemService(@NonNull String name) {
-    if (Injector.matchesService(name)) {
-      return activityGraph;
-    }
-    return super.getSystemService(name);
-  }
+//  @Override public Object getSystemService(@NonNull String name) {
+//    if (Injector.matchesService(name)) {
+//      return activityGraph;
+//    }
+//    return super.getSystemService(name);
+//  }
 
   @Override protected void onDestroy() {
-    activityGraph = null;
+//    activityGraph = null;
     super.onDestroy();
   }
 

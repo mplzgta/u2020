@@ -13,10 +13,7 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 //DI configuration; compare DebugApiModule
-@Module(
-    complete = false,
-    library = true
-)
+@Module
 public final class ApiModule {
   public static final String PRODUCTION_API_URL = "https://api.github.com";
 
