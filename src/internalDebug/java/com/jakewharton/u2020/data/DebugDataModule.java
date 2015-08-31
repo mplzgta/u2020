@@ -27,12 +27,16 @@ import rx.Observable;
 import timber.log.Timber;
 
 @Module(
-    includes = DebugApiModule.class,
-    complete = false,
-    library = true,
-    overrides = true
+    includes = DebugApiModule.class
+    //complete = false,
+    //library = true,
+    //overrides = true
+        //Dagger 2 doesn't support overrides. Modules that override for simple testing fakes can
+        //create a subclass of the module to emulate that behavior. Modules that use overrides and
+        //rely on dependency injection should be decomposed so that the overriden modules are instead
+        //represented as a choice between two modules.
 )
-public final class DebugDataModule {
+public final class DebugDataModule extends DataModule {
   private static final int DEFAULT_ANIMATION_SPEED = 1; // 1x (normal) speed.
   private static final boolean DEFAULT_PICASSO_DEBUGGING = false; // Debug indicators displayed
   private static final boolean DEFAULT_PIXEL_GRID_ENABLED = false; // No pixel grid overlay.
@@ -41,6 +45,10 @@ public final class DebugDataModule {
   private static final boolean DEFAULT_SCALPEL_WIREFRAME_ENABLED = false; // Draw views by default.
   private static final boolean DEFAULT_SEEN_DEBUG_DRAWER = false; // Show debug drawer first time.
   private static final boolean DEFAULT_CAPTURE_INTENTS = true; // Capture external intents.
+
+  public DebugDataModule(Application app) {
+    super(app);
+  }
 
   @Provides @Singleton
   RxSharedPreferences provideRxSharedPreferences(SharedPreferences preferences) {

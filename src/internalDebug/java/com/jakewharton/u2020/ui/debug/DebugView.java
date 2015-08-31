@@ -25,10 +25,12 @@ import butterknife.OnClick;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.jakewharton.u2020.BuildConfig;
 import com.jakewharton.u2020.R;
+import com.jakewharton.u2020.U2020App;
 import com.jakewharton.u2020.data.AnimationSpeed;
 import com.jakewharton.u2020.data.ApiEndpoint;
 import com.jakewharton.u2020.data.ApiEndpoints;
 import com.jakewharton.u2020.data.CaptureIntents;
+import com.jakewharton.u2020.data.DataComponent;
 import com.jakewharton.u2020.data.Injector;
 import com.jakewharton.u2020.data.IsMockMode;
 import com.jakewharton.u2020.data.LumberYard;
@@ -143,13 +145,21 @@ public final class DebugView extends FrameLayout {
 
   private final ContextualDebugActions contextualDebugActions;
 
+//  private DebugDataComponent dataComponent;
+
   public DebugView(Context context) {
     this(context, null);
   }
 
   public DebugView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    Injector.obtain(context).inject(this);
+
+    if (true) throw new RuntimeException();
+    //need something like this:
+//    dataComponent = U2020App.dataComponent;
+//    dataComponent.inject(this);
+
+    //Injector.obtain(context).inject(this);
 
     // Inflate all of the controls and inject them.
     LayoutInflater.from(context).inflate(R.layout.debug_view_content, this);

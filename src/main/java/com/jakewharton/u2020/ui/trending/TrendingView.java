@@ -20,7 +20,13 @@ import butterknife.Bind;
 import butterknife.BindDimen;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
+
+import com.jakewharton.u2020.DaggerU2020Component;
 import com.jakewharton.u2020.R;
+import com.jakewharton.u2020.U2020App;
+import com.jakewharton.u2020.U2020Module;
+import com.jakewharton.u2020.data.DaggerDataComponent;
+import com.jakewharton.u2020.data.DataComponent;
 import com.jakewharton.u2020.data.Injector;
 import com.jakewharton.u2020.data.IntentFactory;
 import com.jakewharton.u2020.data.api.GithubService;
@@ -30,6 +36,8 @@ import com.jakewharton.u2020.data.api.Sort;
 import com.jakewharton.u2020.data.api.model.RepositoriesResponse;
 import com.jakewharton.u2020.data.api.model.Repository;
 import com.jakewharton.u2020.data.api.transforms.SearchResultToRepositoryList;
+import com.jakewharton.u2020.ui.DaggerUiComponent;
+import com.jakewharton.u2020.ui.UiComponent;
 import com.jakewharton.u2020.ui.misc.BetterViewAnimator;
 import com.jakewharton.u2020.ui.misc.DividerItemDecoration;
 import com.jakewharton.u2020.ui.misc.EnumAdapter;
@@ -67,6 +75,8 @@ public final class TrendingView extends LinearLayout
   private final TrendingAdapter trendingAdapter;
   private final CompositeSubscription subscriptions = new CompositeSubscription();
 
+  private DataComponent dataComponent;
+
   public TrendingView(Context context, AttributeSet attrs) {
     super(context, attrs);
     /*
@@ -75,7 +85,10 @@ public final class TrendingView extends LinearLayout
     * this View is being drawn by a visual user interface builder, this method
             * should return true.*/
     if (!isInEditMode()) {
-      throw new RuntimeException();
+      dataComponent = U2020App.dataComponent;
+      dataComponent.inject(this);
+
+      //Note that this injection is to occur before attachment to a context
  //     Injector.obtain(context).inject(this);
     }
 

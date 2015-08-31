@@ -5,7 +5,7 @@ import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module
-public final class UiModule {
+public class UiModule {
   @Provides @Singleton AppContainer provideAppContainer() {
     return AppContainer.DEFAULT;
   }
@@ -13,6 +13,10 @@ public final class UiModule {
     //this is that silly hierarchy server thing that shows the view hierarchy on the dev machine
     //see SocketActivityHierarchyServer
   @Provides @Singleton ActivityHierarchyServer provideActivityHierarchyServer() {
+    return getActivityHierarchyServer();
+  }
+
+  ActivityHierarchyServer getActivityHierarchyServer() {
     return ActivityHierarchyServer.NONE;
   }
 }

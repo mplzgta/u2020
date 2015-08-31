@@ -18,6 +18,9 @@ import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 import com.jakewharton.u2020.R;
+import com.jakewharton.u2020.U2020App;
+import com.jakewharton.u2020.data.DaggerDataComponent;
+import com.jakewharton.u2020.data.DataModule;
 import com.jakewharton.u2020.data.Injector;
 //import dagger.ObjectGraph;
 import javax.inject.Inject;
@@ -25,6 +28,7 @@ import javax.inject.Inject;
 import static android.widget.Toast.LENGTH_SHORT;
 
 //Note: the debug activity counterpart is much shorter!
+
 public final class MainActivity extends Activity {
   @Bind(R.id.main_drawer_layout) DrawerLayout drawerLayout;
   @Bind(R.id.main_navigation) NavigationView drawer;
@@ -44,6 +48,14 @@ public final class MainActivity extends Activity {
       // Remove the status bar color. The DrawerLayout is responsible for drawing it from now on.
       setStatusBarColor(getWindow());
     }
+
+    ((U2020App)getApplication()).dataComponent = DaggerDataComponent.builder()
+            .dataModule(new DataModule(getApplication()))
+            .mainActivityModule(new MainActivityModule(this))
+            .build();
+
+    //TODO better way to do this
+    ((U2020App)getApplication()).uiComponent.inject(this);
 
     // Explicitly reference the application object since we don't want to match our own injector.
 //    ObjectGraph appGraph = Injector.obtain(getApplication());

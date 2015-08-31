@@ -26,14 +26,19 @@ import static org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 public final class LumberYard {
   private static final int BUFFER_SIZE = 200;
 
-  private final Application app;
+  //to prevent circular dependency, this can't be injected
+  private Application app;
 
   private final Deque<Entry> entries = new ArrayDeque<>(BUFFER_SIZE + 1);
   private final PublishSubject<Entry> entrySubject = PublishSubject.create();
 
-  @Inject public LumberYard(Application app) {
+//  //@Inject public LumberYard(Application app) {
+//    this.app = app;
+//  }
+  public void setApp(Application app) {
     this.app = app;
   }
+
 
   public Timber.Tree tree() {
     return new Timber.DebugTree() {
@@ -62,6 +67,9 @@ public final class LumberYard {
 
   /**  Save the current logs to disk. */
   public Observable<File> save() {
+    if (app == null) {
+      Log.e("LumberYard", "APP IS NULL IN LUMBERYARD");
+    }
     return Observable.create(new Observable.OnSubscribe<File>() {
       @Override public void call(Subscriber<? super File> subscriber) {
         File folder = app.getExternalFilesDir(null);
@@ -103,6 +111,9 @@ public final class LumberYard {
    * finished using the file reference.
    */
   public void cleanUp() {
+    if (app == null) {
+      Log.e("LumberYard", "APP IS NULL IN LUMBERYARD");
+    }
     new AsyncTask<Void, Void, Void>() {
       @Override protected Void doInBackground(Void... folders) {
         File folder = app.getExternalFilesDir(null);

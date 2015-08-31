@@ -16,11 +16,12 @@ import retrofit.RestAdapter;
 import retrofit.android.AndroidMockValuePersistence;
 
 @Module(
-    complete = false,
-    library = true,
-    overrides = true
+    //overrides = true        //Dagger 2 doesn't support overrides. Modules that override for simple testing fakes can
+        //create a subclass of the module to emulate that behavior. Modules that use overrides and
+        //rely on dependency injection should be decomposed so that the overriden modules are instead
+        //represented as a choice between two modules.
 )
-public final class DebugApiModule {
+public final class DebugApiModule extends ApiModule {
 
   @Provides @Singleton
   Endpoint provideEndpoint(@ApiEndpoint StringPreference apiEndpoint) {

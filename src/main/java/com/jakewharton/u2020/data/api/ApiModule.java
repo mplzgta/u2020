@@ -14,7 +14,7 @@ import retrofit.converter.GsonConverter;
 
 //DI configuration; compare DebugApiModule
 @Module
-public final class ApiModule {
+public class ApiModule {
   public static final String PRODUCTION_API_URL = "https://api.github.com";
 
   @Provides @Singleton Endpoint provideEndpoint() {

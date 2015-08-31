@@ -25,8 +25,14 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @Module(
     includes = ApiModule.class
 )
-public final class DataModule {
+public class DataModule {
   static final int DISK_CACHE_SIZE = (int) MEGABYTES.toBytes(50);
+
+  Application theApp;
+
+  public DataModule(Application app) {
+    theApp = app;
+  }
 
   @Provides @Singleton SharedPreferences provideSharedPreferences(Application app) {
     return app.getSharedPreferences("u2020", MODE_PRIVATE);
@@ -47,12 +53,12 @@ public final class DataModule {
   }
 
   //note: this is different from provideAPIHttpClient, in ApiModule
-  @Provides @Singleton OkHttpClient provideOkHttpClient(Application app) {
-    return createOkHttpClient(app);
+  @Provides @Singleton OkHttpClient provideOkHttpClient(/*Application app*/) {
+    return createOkHttpClient(theApp);
   }
 
-  @Provides @Singleton Picasso providePicasso(Application app, OkHttpClient client) {
-    return new Picasso.Builder(app)
+  @Provides @Singleton Picasso providePicasso(/*Application app, */ OkHttpClient client) {
+    return new Picasso.Builder(theApp)
         .downloader(new OkHttpDownloader(client))
         .listener(new Picasso.Listener() {
           @Override public void onImageLoadFailed(Picasso picasso, Uri uri, Exception e) {
