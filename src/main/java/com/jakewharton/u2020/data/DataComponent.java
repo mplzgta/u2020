@@ -30,12 +30,4 @@ import dagger.Component;
 )
 public interface DataComponent {
         void inject(TrendingView trendingView);
-
-        //Picasso picasso();  //Application application, OkHttpClient okHttpClient);
-//
-//        void inject(IntentFactory intentFactory);
-//
-//        void inject(GithubService githubService);
-//
-//        void inject(DrawerLayout drawerLayout);
 }

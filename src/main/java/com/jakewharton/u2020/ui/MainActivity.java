@@ -21,6 +21,7 @@ import com.jakewharton.u2020.R;
 import com.jakewharton.u2020.U2020App;
 import com.jakewharton.u2020.data.DaggerDataComponent;
 import com.jakewharton.u2020.data.DataModule;
+import com.jakewharton.u2020.data.DebugDataModule;
 import com.jakewharton.u2020.data.Injector;
 //import dagger.ObjectGraph;
 import javax.inject.Inject;
@@ -40,6 +41,10 @@ public final class MainActivity extends Activity {
 //
 //  private ObjectGraph activityGraph;
 
+  public MainActivity() {
+    super();
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     LayoutInflater inflater = getLayoutInflater();
@@ -50,7 +55,7 @@ public final class MainActivity extends Activity {
     }
 
     ((U2020App)getApplication()).dataComponent = DaggerDataComponent.builder()
-            .dataModule(new DataModule(getApplication()))
+            .dataModule(new DebugDataModule(getApplication()))
             .mainActivityModule(new MainActivityModule(this))
             .build();
 

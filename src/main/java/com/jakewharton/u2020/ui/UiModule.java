@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 @Module
 public class UiModule {
   @Provides @Singleton AppContainer provideAppContainer() {
-    return AppContainer.DEFAULT;
+    return getAppContainer(); //AppContainer.DEFAULT;
   }
 
     //this is that silly hierarchy server thing that shows the view hierarchy on the dev machine
@@ -19,4 +19,6 @@ public class UiModule {
   ActivityHierarchyServer getActivityHierarchyServer() {
     return ActivityHierarchyServer.NONE;
   }
+
+  AppContainer getAppContainer() { return AppContainer.DEFAULT; }
 }

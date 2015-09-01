@@ -14,6 +14,7 @@ public final class DebugActivity extends Activity {
 //  private ObjectGraph appGraph;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
+    if (true) throw new RuntimeException();
     super.onCreate(savedInstanceState);
 //    appGraph = Injector.obtain(getApplication());
     setContentView(R.layout.debug_activity);
